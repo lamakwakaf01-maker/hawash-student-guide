@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل طالب الحواش</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #222;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .login-box {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      width: 100%;
+      padding: 30px 22px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #008f82;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: #008f82;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(.98);
+    }
+
+    .error {
+      color: #d93025;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .app {
+      display: none;
+    }
+
+    header {
+      background: #008f82;
+      color: white;
+      padding: 25px 20px;
+      border-radius: 0 0 25px 25px;
+      margin-bottom: 20px;
+    }
+
+    header h2 {
+      margin-bottom: 5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .menu-card {
+      background: white;
+      padding: 22px 12px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,.06);
+      cursor: pointer;
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .menu-card h3 {
+      font-size: 15px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .back {
+      background: #eee;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .content-card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .logout {
+      margin-top: 20px;
+      background: #d9534f;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- تسجيل الدخول -->
+  <section id="loginScreen" class="login-box">
+    <div class="container">
+      <div class="card">
+        <h1>دليل طالب الحواش</h1>
+
+        <p class="subtitle">
+          أهلاً بك 👋<br>
+          أدخل رمز الدخول الخاص بك للوصول إلى دليل الطلاب.
+        </p>
+
+        <input
+          id="accessCode"
+          type="text"
+          placeholder="أدخل رمز الدخول"
+          autocomplete="off"
+        >
+
+        <button onclick="login()">دخول</button>
+
+        <p id="loginError" class="error">
+          رمز الدخول غير صحيح أو غير فعال.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- التطبيق -->
+  <section id="app" class="app">
+
+    <header>
+      <div class="container">
+        <h2>دليل طالب الحواش</h2>
+        <p>كل ما يحتاجه الطالب بمكان واحد</p>
+      </div>
+    </header>
+
+    <main class="container">
+
+      <!-- الرئيسية -->
+      <div id="homePage" class="page active">
+
+        <div class="grid">
+
+          <div class="menu-card" onclick="showPage('mapPage')">
+            <div class="icon">🗺️</div>
+            <h3>الخريطة</h3>
+          </div>
+
+          <div class="menu-card" onclick="showPage('buildingsPage')">
+            <div class="icon">🏢</div>
+            <h3>الأبنية والمرافق</h3>
+          </div>
+
+          <div class="menu-card" onclick="showPage('staffPage')">
+            <div class="icon">👨‍🏫</div>
+            <h3>الكادر والعمادة</h3>
+          </div>
+
+          <div class="menu-card" onclick="showPage('calendarPage')">
+            <div class="icon">📅</div>
+            <h3>التقويم الجامعي</h3>
+          </div>
+
+          <div class="menu-card" onclick="showPage('guidePage')">
+            <div class="icon">ℹ️</div>
+            <h3>دليل الطالب</h3>
+          </div>
+
+        </div>
+
+        <button class="logout" onclick="logout()">تسجيل الخروج</button>
+
+      </div>
+
+
+      <!-- الخريطة -->
+      <div id="mapPage" class="page">
+        <button class="back" onclick="showPage('homePage')">← رجوع</button>
+
+        <div class="content-card">
+          <h2>🗺️ خريطة الجامعة</h2>
+          <br>
+          <p>سيتم وضع خريطة جامعة الحواش هنا.</p>
+        </div>
+      </div>
+
+
+      <!-- الأبنية -->
+      <div id="buildingsPage" class="page">
+        <button class="back" onclick="showPage('homePage')">← رجوع</button>
+
+        <h2>🏢 الأبنية والمرافق</h2>
+        <br>
+        <div id="buildingsList"></div>
+      </div>
+
+
+      <!-- الكادر -->
+      <div id="staffPage" class="page">
+        <button class="back" onclick="showPage('homePage')">← رجوع</button>
+
+        <h2>👨‍🏫 الكادر والعمادة</h2>
+        <br>
+        <div id="staffList"></div>
+      </div>
+
+
+      <!-- التقويم -->
+      <div id="calendarPage" class="page">
+        <button class="back" onclick="showPage('homePage')">← رجوع</button>
+
+        <h2>📅 التقويم الجامعي</h2>
+        <br>
+        <div id="calendarList"></div>
+      </div>
+
+
+      <!-- دليل الطالب -->
+      <div id="guidePage" class="page">
+        <button class="back" onclick="showPage('homePage')">← رجوع</button>
+
+        <h2>ℹ️ دليل الطالب</h2>
+        <br>
+        <div id="guideList"></div>
+      </div>
+
+    </main>
+  </section>
+
+
+<script>
+  // بيانات مشروع Supabase
+  const SUPABASE_URL = "https://uhmpdjwvfiqnmevuvcot.supabase.co";
+
+  // الصق Publishable Key بين علامتي الاقتباس
+  const SUPABASE_KEY = "sb_publishable_vh_Io_3AT2ljVkCWgo_ODg_hhPqu5NE";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+  async function login() {
+
+    const code = document
+      .getElementById("accessCode")
+      .value
+      .trim();
+
+    const error = document.getElementById("loginError");
+
+    error.style.display = "none";
+
+    if (!code) {
+      error.textContent = "أدخل رمز الدخول أولاً.";
+      error.style.display = "block";
+      return;
+    }
+
+    const { data: authData, error: authError } =
+      await supabaseClient.auth.signInAnonymously();
+
+    if (authError) {
+      error.textContent = "حدث خطأ في الاتصال. حاول مرة أخرى.";
+      error.style.display = "block";
+      return;
+    }
+
+    const { data, error: verifyError } =
+      await supabaseClient.rpc(
+        "verify_access_code",
+        { input_code: code }
+      );
+
+    if (verifyError || data !== true) {
+      error.textContent = "رمز الدخول غير صحيح أو غير فعال.";
+      error.style.display = "block";
+      return;
+    }
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+
+    loadData();
+  }
+
+
+  async function loadData() {
+
+    loadTable(
+      "buildings",
+      "buildingsList",
+      item => `
+        <div class="content-card">
+          <h3>${item.name || ""}</h3>
+          <p>${item.description || ""}</p>
+        </div>
+      `
+    );
+
+    loadTable(
+      "staff",
+      "staffList",
+      item => `
+        <div class="content-card">
+          <h3>${item.name || ""}</h3>
+          <p><strong>${item.position || ""}</strong></p>
+          <p>${item.description || ""}</p>
+        </div>
+      `
+    );
+
+    loadTable(
+      "calendar",
+      "calendarList",
+      item => `
+        <div class="content-card">
+          <h3>${item.title || ""}</h3>
+          <p>${item.event_date || ""}</p>
+          <p>${item.description || ""}</p>
+        </div>
+      `
+    );
+
+    loadTable(
+      "student_guide",
+      "guideList",
+      item => `
+        <div class="content-card">
+          <h3>${item.title || ""}</h3>
+          <p>${item.content || ""}</p>
+        </div>
+      `
+    );
+  }
+
+
+  async function loadTable(table, elementId, template) {
+
+    const { data, error } =
+      await supabaseClient
+        .from(table)
+        .select("*");
+
+    const element =
+      document.getElementById(elementId);
+
+    if (error) {
+      element.innerHTML =
+        '<div class="content-card">تعذر تحميل البيانات.</div>';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      element.innerHTML =
+        '<div class="content-card">لا توجد معلومات حالياً.</div>';
+      return;
+    }
+
+    element.innerHTML =
+      data.map(template).join("");
+  }
+
+
+  function showPage(pageId) {
+
+    document
+      .querySelectorAll(".page")
+      .forEach(page => {
+        page.classList.remove("active");
+      });
+
+    document
+      .getElementById(pageId)
+      .classList.add("active");
+
+    window.scrollTo(0, 0);
+  }
+
+
+  async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("app").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+
+    document.getElementById("accessCode").value = "";
+  }
+</script>
+
+</body>
+          </html>
