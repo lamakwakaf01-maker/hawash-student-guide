@@ -409,8 +409,8 @@
 
     if (error) {
       element.innerHTML =
-        '<div class="content-card">تعذر تحميل البيانات.</div>';
-      return;
+        '<div class="content-card">خطأ: ' + error.message + '</div>';
+  return;
     }
 
     if (!data || data.length === 0) {
