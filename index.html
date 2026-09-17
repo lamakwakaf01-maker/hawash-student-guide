@@ -212,6 +212,11 @@
             <h3>الأبنية والمرافق</h3>
           </div>
 
+          <div class="menu-card" onclick="showPage('facultiesPage')">
+            <div class="icon">🏫</div>
+            <h3>الكليات والأقسام</h3>
+          </div>
+          
           <div class="menu-card" onclick="showPage('staffPage')">
             <div class="icon">👨‍🏫</div>
             <h3>الكادر والعمادة</h3>
@@ -255,7 +260,15 @@
         <div id="buildingsList"></div>
       </div>
 
+      <!-- الكليات والأقسام -->
+     <div id="facultiesPage" class="page">
+        <button class="back" onclick="showPage('homePage')">← رجوع</button>
 
+        <h2>🏫 الكليات والأقسام</h2>
+        <br>
+        <div id="facultiesList"></div>
+      </div>
+      
       <!-- الكادر -->
       <div id="staffPage" class="page">
         <button class="back" onclick="showPage('homePage')">← رجوع</button>
@@ -263,7 +276,6 @@
         <h2>👨‍🏫 الكادر والعمادة</h2>
         <br>
         <div id="staffList"></div>
-        <div id="facultiesList"></div>
       </div>
 
 
