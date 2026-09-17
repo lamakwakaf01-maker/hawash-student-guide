@@ -147,7 +147,29 @@
       margin-bottom: 12px;
       line-height: 1.8;
     }
+     .calendar-card {
+  background: white;
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 14px;
+  border-right: 5px solid #00A898;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
 
+.calendar-date {
+  font-size: 14px;
+  font-weight: bold;
+  color: #00A898;
+  margin-bottom: 5px;
+}
+
+.calendar-card h3 {
+  margin: 0 0 6px 0;
+}
+
+.calendar-card p {
+  margin: 4px 0;
+}
     .logout {
       margin-top: 20px;
       background: #d9534f;
@@ -390,11 +412,11 @@ if (calendarError) {
 } else {
   calendarElement.innerHTML =
     calendarData.map(item => `
-      <div class="content-card">
-        <h3>📅 ${item.title || ""}</h3>
-        <p><strong>${item.event_date || ""}</strong></p>
-        <p>${item.description || ""}</p>
-      </div>
+      <div class="calendar-card">
+  <div class="calendar-date">📅 ${item.event_date || ""}</div>
+  <h3>${item.title || ""}</h3>
+  <p>${item.description || ""}</p>
+</div>
     `).join("");
 }
 
