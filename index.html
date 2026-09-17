@@ -263,6 +263,7 @@
         <h2>👨‍🏫 الكادر والعمادة</h2>
         <br>
         <div id="staffList"></div>
+        <div id="facultiesList"></div>
       </div>
 
 
@@ -391,6 +392,28 @@
         <div class="content-card">
           <h3>${item.title || ""}</h3>
           <p>${item.content || ""}</p>
+        </div>
+      `
+    );
+    
+    loadTable(
+      "faculties",
+      "facultiesList",
+      item => `
+        <div class="content-card">
+          <h3>${item.name || ""}</h3>
+          <p>${item.description || ""}</p>
+        </div>
+      `
+    );
+
+        loadTable(
+      "departments",
+      "facultiesList",
+      item => `
+        <div class="content-card">
+          <h3>${item.name || ""}</h3>
+          <p>${item.description || ""}</p>
         </div>
       `
     );
