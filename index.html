@@ -372,17 +372,31 @@
       `
     );
 
-    loadTable(
-      "calendar",
-      "calendarList",
-      item => `
-        <div class="content-card">
-          <h3>${item.title || ""}</h3>
-          <p>${item.event_date || ""}</p>
-          <p>${item.description || ""}</p>
-        </div>
-      `
-    );
+    const { data: calendarData, error: calendarError } =
+  await supabaseClient
+    .from("calendar")
+    .select("*")
+    .order("event_date", { ascending: true });
+
+const calendarElement =
+  document.getElementById("calendarList");
+
+if (calendarError) {
+  calendarElement.innerHTML =
+    '<div class="content-card">خطأ: تعذر تحميل التقويم.</div>';
+} else if (!calendarData || calendarData.length === 0) {
+  calendarElement.innerHTML =
+    '<div class="content-card">لا توجد مواعيد حالياً.</div>';
+} else {
+  calendarElement.innerHTML =
+    calendarData.map(item => `
+      <div class="content-card">
+        <h3>📅 ${item.title || ""}</h3>
+        <p><strong>${item.event_date || ""}</strong></p>
+        <p>${item.description || ""}</p>
+      </div>
+    `).join("");
+}
 
     loadTable(
       "student_guide",
