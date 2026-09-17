@@ -407,28 +407,56 @@
         </div>
       `
     );
-    
-    loadTable(
-      "faculties",
-      "facultiesList",
-      item => `
-        <div class="content-card">
-          <h3>${item.name || ""}</h3>
-          <p>${item.description || ""}</p>
-        </div>
-      `
-    );
+    const { data: faculties, error: facultiesError } =
+      await supabaseClient
+        .from("faculties")
+        .select("*")
+        .order("id");
 
-        loadTable(
-      "departments",
-      "facultiesList",
-      item => `
-        <div class="content-card">
-          <h3>${item.name || ""}</h3>
-          <p>${item.description || ""}</p>
-        </div>
-      `
-    );
+    const { data: departments, error: departmentsError } =
+      await supabaseClient
+        .from("departments")
+        .select("*")
+        .order("id");
+
+    const facultiesElement =
+      document.getElementById("facultiesList");
+
+    if (facultiesError || departmentsError) {
+      facultiesElement.innerHTML =
+        '<div class="content-card">خطأ: تعذر تحميل الكليات والأقسام.</div>';
+      return;
+    }
+
+    facultiesElement.innerHTML =
+      faculties.map(faculty => {
+        const facultyDepartments =
+          departments.filter(
+            department => department.faculty_id === faculty.id
+          );
+
+        return `
+          <div class="content-card">
+            <h3>🏫 ${faculty.name || ""}</h3>
+            <p>${faculty.description || ""}</p>
+
+            ${
+              facultyDepartments.length > 0
+                ? `
+                  <div>
+                    <strong>الأقسام:</strong>
+                    <ul>
+                      ${facultyDepartments.map(department => `
+                        <li>${department.name || ""}</li>
+                      `).join("")}
+                    </ul>
+                  </div>
+                `
+                : ""
+            }
+          </div>
+        `;
+      }).join("");
   }
 
 
