@@ -157,15 +157,68 @@ header p {
     }
 
     .menu-card {
-  background: rgba(255, 255, 255, 0.94);
-  padding: 24px 12px;
-  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 25px 12px 22px;
+  border-radius: 22px;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  border: 1px solid rgba(0, 168, 152, 0.08);
+  border: 1px solid rgba(0, 168, 152, 0.10);
+  box-shadow: 0 8px 22px rgba(0, 70, 65, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+}
+
+.menu-card::before {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 168, 152, 0.07);
+  top: -35px;
+  left: -25px;
+}
+
+.menu-card::after {
+  content: "";
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 192, 14, 0.10);
+  bottom: -18px;
+  right: -10px;
+}
+
+.menu-card:active {
+  transform: scale(0.96);
+  box-shadow: 0 4px 12px rgba(0, 70, 65, 0.12);
+}
+
+.menu-card .icon {
+  position: relative;
+  z-index: 2;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e5f8f5, #f3fffd);
+  border-radius: 18px;
+  font-size: 29px;
+  box-shadow: 0 5px 14px rgba(0, 168, 152, 0.10);
+}
+
+.menu-card h3 {
+  position: relative;
+  z-index: 2;
+  color: #333;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+}
 
     .icon {
       font-size: 30px;
