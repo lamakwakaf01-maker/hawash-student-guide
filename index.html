@@ -219,6 +219,17 @@
   font-size: 14px;
   border-right: 3px solid #FFC00E;
 }
+.faculty-status {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: #fff4d6;
+  color: #9a6a00;
+  font-size: 12px;
+  font-weight: 700;
+  vertical-align: middle;
+}
      .calendar-card {
   background: white;
   padding: 18px;
@@ -572,7 +583,15 @@ item => `
 
         return `
   <div class="faculty-card">
-    <h3>🏫 ${faculty.name || ""}</h3>
+    <h3>
+  🏫 ${faculty.name || ""}
+  ${
+    faculty.name === "كلية الفنون الأدائية" ||
+    faculty.name === "كلية العلاج الطبيعي والطب التكميلي"
+      ? '<span class="faculty-status">قيد الإنشاء</span>'
+      : ""
+  }
+</h3>
 
     ${
       faculty.description
