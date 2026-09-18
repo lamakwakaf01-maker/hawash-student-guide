@@ -180,6 +180,45 @@
   color: #555555;
   font-size: 15px;
 }
+/* Faculties & Departments - Professional Cards */
+.faculty-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  border-right: 5px solid #00A898;
+}
+
+.faculty-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #424242;
+}
+
+.faculty-card-description {
+  color: #666666;
+  font-size: 14px;
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.departments-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #00A898;
+  margin-bottom: 10px;
+}
+
+.department-item {
+  background: #f5f9f8;
+  padding: 11px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  color: #424242;
+  font-size: 14px;
+  border-right: 3px solid #FFC00E;
+}
      .calendar-card {
   background: white;
   padding: 18px;
@@ -532,26 +571,32 @@ item => `
           );
 
         return `
-          <div class="content-card">
-            <h3>🏫 ${faculty.name || ""}</h3>
-            <p>${faculty.description || ""}</p>
+  <div class="faculty-card">
+    <h3>🏫 ${faculty.name || ""}</h3>
 
-            ${
-              facultyDepartments.length > 0
-                ? `
-                  <div>
-                    <strong>الأقسام:</strong>
-                    <ul>
-                      ${facultyDepartments.map(department => `
-                        <li>${department.name || ""}</li>
-                      `).join("")}
-                    </ul>
-                  </div>
-                `
-                : ""
-            }
+    ${
+      faculty.description
+        ? `<div class="faculty-card-description">${faculty.description}</div>`
+        : ""
+    }
+
+    ${
+      facultyDepartments.length > 0
+        ? `
+          <div class="departments-title">📚 الأقسام</div>
+
+          <div>
+            ${facultyDepartments.map(department => `
+              <div class="department-item">
+                ${department.name || ""}
+              </div>
+            `).join("")}
           </div>
-        `;
+        `
+        : ""
+    }
+  </div>
+`;
       }).join("");
   }
 
