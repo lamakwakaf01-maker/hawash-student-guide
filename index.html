@@ -43,13 +43,40 @@
     }
 
     .card {
-      background: white;
-      width: 100%;
-      padding: 30px 22px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.08);
-      text-align: center;
-    }
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  width: 100%;
+  padding: 32px 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 168, 152, 0.12);
+  box-shadow:
+    0 10px 0 rgba(0, 105, 95, 0.06),
+    0 18px 35px rgba(0, 60, 55, 0.16);
+  text-align: center;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(0, 168, 152, 0.07);
+  top: -60px;
+  left: -45px;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 192, 14, 0.08);
+  bottom: -45px;
+  right: -30px;
+      }
 
     h1 {
       font-size: 28px;
