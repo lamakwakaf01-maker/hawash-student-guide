@@ -34,16 +34,14 @@
 
     .login-box {
   min-height: 100vh;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   background:
     radial-gradient(circle at 15% 20%, rgba(0, 168, 152, 0.18), transparent 32%),
     radial-gradient(circle at 85% 75%, rgba(255, 192, 14, 0.14), transparent 30%);
     }
-    .login-box .card {
-  display: block;
-      }
+    
 
     .card {
   position: relative;
@@ -829,18 +827,3 @@ item => `
     window.scrollTo(0, 0);
   }
 
-
-  async function logout() {
-
-    await supabaseClient.auth.signOut();
-
-    document.getElementById("app").style.display = "none";
-    document.getElementById("loginScreen").style.display = "flex";
-    document.getElementById("loginScreen").style.visibility = "visible";
-    document.getElementById("loginScreen").style.opacity = "1";
-    document.getElementById("accessCode").value = "";
-  }
-</script>
-
-</body>
-          </html>
