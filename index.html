@@ -79,36 +79,52 @@
       }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #008f82;
-    }
+  font-size: 29px;
+  margin-bottom: 10px;
+  color: #00796f;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
 
-    .subtitle {
-      color: #666;
-      margin-bottom: 25px;
-      line-height: 1.7;
-    }
+.subtitle {
+  color: #5f6b6d;
+  margin-bottom: 25px;
+  line-height: 1.8;
+  font-size: 15px;
+}
 
     input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      font-size: 16px;
-      text-align: center;
-      margin-bottom: 12px;
-    }
+  width: 100%;
+  padding: 15px 16px;
+  border: 2px solid #d9e3e4;
+  border-radius: 14px;
+  background: #f8fafb;
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+input:focus {
+  border-color: #00A898;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0, 168, 152, 0.10);
+}
 
     button {
-      width: 100%;
-      padding: 15px;
-      border: 0;
-      border-radius: 12px;
-      background: #008f82;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00796f, #00a898);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 7px 16px rgba(0, 105, 95, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     button:active {
