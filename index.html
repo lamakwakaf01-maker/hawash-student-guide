@@ -648,7 +648,7 @@ header p {
 
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("app").style.display = "block";
-
+    
     loadData();
   }
 
@@ -836,7 +836,8 @@ item => `
 
     document.getElementById("app").style.display = "none";
     document.getElementById("loginScreen").style.display = "flex";
-
+    document.getElementById("loginScreen").style.visibility = "visible";
+    document.getElementById("loginScreen").style.opacity = "1";
     document.getElementById("accessCode").value = "";
   }
 </script>
