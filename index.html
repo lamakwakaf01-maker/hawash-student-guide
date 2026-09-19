@@ -604,8 +604,12 @@ header p {
   // الصق Publishable Key بين علامتي الاقتباس
   const SUPABASE_KEY = "sb_publishable_vh_Io_3AT2ljVkCWgo_ODg_hhPqu5NE";
 
-  console.log("SUPABASE TEST");
+  const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
+alert("SUPABASE OK");
 
   async function login() {
 
