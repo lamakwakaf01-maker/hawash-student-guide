@@ -593,11 +593,14 @@ header p {
 
     </main>
   </section>
+<script>
+window.addEventListener("error", function(e) {
+  alert("خطأ JavaScript:\n" + e.message + "\nالسطر: " + e.lineno);
+});
+</script>
 
 
 <script>
-    alert("وصلنا للسكريبت الرئيسي");
-    
   // بيانات مشروع Supabase
   const SUPABASE_URL = "https://uhmpdjwvfiqnmevuvcot.supabase.co";
 
@@ -832,4 +835,4 @@ item => `
   }
    document.getElementById("loginScreen").style.display = "flex";
    console.log("LOGIN TEST");
-   </script>
+  
