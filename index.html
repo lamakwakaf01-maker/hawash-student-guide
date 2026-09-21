@@ -895,50 +895,50 @@ const places = [
 
   {
     name: "كلية الحقوق جامعة الحواش الخاصة",
-    x: 25,
-    y: 25
+    lat: 34.78020,
+    lng: 36.32990
   },
 
   {
     name: "شؤون الطلاب",
-    x: 35,
-    y: 35
+    lat: 34.77990,
+    lng: 36.33035
   },
 
   {
     name: "كلية طب الأسنان جامعة الحواش",
-    x: 45,
-    y: 45
+    lat: 34.77980,
+    lng: 36.33100
   },
 
   {
     name: "كافتريا الأسنان",
-    x: 50,
-    y: 40
+    lat: 34.78020,
+    lng: 36.33105
   },
 
   {
     name: "كلية التجميل",
-    x: 30,
-    y: 55
+    lat: 34.77870,
+    lng: 36.33075
   },
 
   {
     name: "كلية الطب البشري",
-    x: 65,
-    y: 35
+    lat: 34.78005,
+    lng: 36.33200
   },
 
   {
     name: "كلية الصيدلة",
-    x: 70,
-    y: 45
+    lat: 34.77955,
+    lng: 36.33235
   },
 
   {
     name: "مشفى جامعة الحواش",
-    x: 80,
-    y: 25
+    lat: 34.78120,
+    lng: 36.33440
   }
 
 ];
@@ -951,13 +951,7 @@ places.forEach(place => {
     iconSize: null
   });
 
-  L.marker(map.unproject(
-    [
-      (place.x / 100) * document.getElementById("universityMap").clientWidth,
-      (place.y / 100) * document.getElementById("universityMap").clientHeight
-    ],
-    map.getZoom()
-  ), {
+  L.marker([place.lat, place.lng], {
     icon: label,
     interactive: false
   }).addTo(map);
