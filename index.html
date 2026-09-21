@@ -841,10 +841,17 @@ item => `
   console.log("LEAFLET TEST:", typeof L);
   </script>
 
-  <script>
-  const map = L.map("universityMap").setView([34.7, 36.7], 15);
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof L === "undefined") {
+      console.log("LEAFLET NOT LOADED");
+      return;
+    }
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors"
-  }).addTo(map);
-  </script>
+    const map = L.map("universityMap").setView([34.7, 36.7], 15);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+  });
+                  </script>
