@@ -837,3 +837,11 @@ item => `
   <script>
   console.log("LEAFLET TEST:", typeof L);
   </script>
+
+  <script>
+  const map = L.map("universityMap").setView([34.7, 36.7], 15);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+  </script>
