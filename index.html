@@ -856,8 +856,8 @@ item => `
 
     const map = L.map("universityMap").setView([34.78035, 36.33105], 17);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors"
-    }).addTo(map);
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+  attribution: "Tiles &copy; Esri"
+}).addTo(map);
   });
                   </script>
