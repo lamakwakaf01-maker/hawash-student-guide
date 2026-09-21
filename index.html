@@ -312,7 +312,33 @@ header p {
   height: 450px;
   border-radius: 16px;
   overflow: hidden;
-    }
+}
+
+.map-place-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.map-place-label span {
+  display: block;
+  width: max-content;
+  max-width: 170px;
+  padding: 5px 9px;
+  border-radius: 9px;
+
+  background: rgba(0, 0, 0, 0.62);
+  color: white;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  direction: rtl;
+
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  white-space: normal;
+  }
 
 /* Student Guide - Cards */
 .guide-card {
@@ -862,46 +888,75 @@ item => `
 
 
 // ===============================
-// 📍 أماكن جامعة الحواش
+// 🗺️ أسماء الأماكن على الخريطة
 // ===============================
 
 const places = [
 
   {
-    name: "جامعة الحواش الخاصة",
-    category: "الكليات",
-    lat: 34.78035,
+    name: "كلية الحقوق جامعة الحواش الخاصة",
+    lat: 34.78020,
+    lng: 36.32990
+  },
+
+  {
+    name: "شؤون الطلاب",
+    lat: 34.77990,
+    lng: 36.33035
+  },
+
+  {
+    name: "كلية طب الأسنان جامعة الحواش",
+    lat: 34.77980,
+    lng: 36.33100
+  },
+
+  {
+    name: "كافتريا الأسنان",
+    lat: 34.78020,
     lng: 36.33105
   },
 
   {
+    name: "كلية التجميل",
+    lat: 34.77870,
+    lng: 36.33075
+  },
+
+  {
+    name: "كلية الطب البشري",
+    lat: 34.78005,
+    lng: 36.33200
+  },
+
+  {
+    name: "كلية الصيدلة",
+    lat: 34.77955,
+    lng: 36.33235
+  },
+
+  {
     name: "مشفى جامعة الحواش",
-    category: "الخدمات",
-    // موقع المشفى كما يظهر في بيانات الخرائط
-    lat: 34.7812,
-    lng: 36.3344
+    lat: 34.78120,
+    lng: 36.33440
   }
 
 ];
 
 
-// إنشاء الـ Pins
+// إنشاء الأسماء بدون Pins
 places.forEach(place => {
 
-  const marker = L.marker([place.lat, place.lng])
-    .addTo(map);
+  const label = L.divIcon({
+    className: "map-place-label",
+    html: `<span>${place.name}</span>`,
+    iconSize: null
+  });
 
-  marker.bindPopup(`
-    <div style="text-align:center; direction:rtl;">
-      <strong style="font-size:16px;">
-        ${place.name}
-      </strong>
-      <br>
-      <span style="color:#008f82;">
-        ${place.category}
-      </span>
-    </div>
-  `);
+  L.marker([place.lat, place.lng], {
+    icon: label,
+    interactive: false
+  }).addTo(map);
 
 });
   })
