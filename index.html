@@ -895,56 +895,54 @@ const places = [
 
   {
     name: "كلية الحقوق جامعة الحواش الخاصة",
-    lat: 34.78020,
-    lng: 36.32990
+    x: 25,
+    y: 25
   },
 
   {
     name: "شؤون الطلاب",
-    lat: 34.77990,
-    lng: 36.33035
+    x: 35,
+    y: 35
   },
 
   {
     name: "كلية طب الأسنان جامعة الحواش",
-    lat: 34.77980,
-    lng: 36.33100
+    x: 45,
+    y: 45
   },
 
   {
     name: "كافتريا الأسنان",
-    lat: 34.78020,
-    lng: 36.33105
+    x: 50,
+    y: 40
   },
 
   {
     name: "كلية التجميل",
-    lat: 34.77870,
-    lng: 36.33075
+    x: 30,
+    y: 55
   },
 
   {
     name: "كلية الطب البشري",
-    lat: 34.78005,
-    lng: 36.33200
+    x: 65,
+    y: 35
   },
 
   {
     name: "كلية الصيدلة",
-    lat: 34.77955,
-    lng: 36.33235
+    x: 70,
+    y: 45
   },
 
   {
     name: "مشفى جامعة الحواش",
-    lat: 34.78120,
-    lng: 36.33440
+    x: 80,
+    y: 25
   }
 
 ];
 
-
-// إنشاء الأسماء بدون Pins
 places.forEach(place => {
 
   const label = L.divIcon({
@@ -953,7 +951,13 @@ places.forEach(place => {
     iconSize: null
   });
 
-  L.marker([place.lat, place.lng], {
+  L.marker(map.unproject(
+    [
+      (place.x / 100) * document.getElementById("universityMap").clientWidth,
+      (place.y / 100) * document.getElementById("universityMap").clientHeight
+    ],
+    map.getZoom()
+  ), {
     icon: label,
     interactive: false
   }).addTo(map);
