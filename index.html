@@ -504,6 +504,35 @@ header p {
   transform: scale(0.97);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
        }
+
+  /* أزرار تكبير وتصغير الخريطة */
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 60, 55, 0.18) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  width: 38px !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  background: #ffffff !important;
+  color: #008f82 !important;
+  border: none !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  transition: all 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #f0faf8 !important;
+  color: #006f65 !important;
+}
+
+.leaflet-control-zoom a:first-child {
+  border-bottom: 1px solid rgba(0, 168, 152, 0.15) !important;
+  }
     
   </style>
 
@@ -908,7 +937,7 @@ const image = L.imageOverlay(
   imageBounds
 ).addTo(map);
 
-map.setMinZoom(18);
+map.setMinZoom(17);
 
 function limitMap() {
   map.invalidateSize();
