@@ -899,14 +899,67 @@ const map = L.map("universityMap", {
   touchZoom: false,
   boxZoom: false,
   keyboard: false,
-  zoomControl: true
+  zoomControl: true,
+  maxBoundsViscosity: 1
 }).setView([34.78035, 36.33105], 19);
 
+const image = L.imageOverlay(
+  "hawash-map.jpg.jpeg",
+  imageBounds
+).addTo(map);
 
+function limitMap() {
+  map.invalidateSize();
 
+  const zoom = map.getZoom();
+  const size = map.getSize();
 
-L.imageOverlay("hawash-map.jpg.jpeg", imageBounds).addTo(map);
+  if (!size.x || !size.y) return;
 
+  const sw = map.project(
+    L.latLng(imageBounds[0][0], imageBounds[0][1]),
+    zoom
+  );
+
+  const ne = map.project(
+    L.latLng(imageBounds[1][0], imageBounds[1][1]),
+    zoom
+  );
+
+  const halfW = size.x / 2;
+  const halfH = size.y / 2;
+
+  const minX = sw.x + halfW;
+  const maxX = ne.x - halfW;
+  const minY = ne.y + halfH;
+  const maxY = sw.y - halfH;
+
+  if (minX > maxX || minY > maxY) return;
+
+  const southWest = map.unproject(
+    [minX, maxY],
+    zoom
+  );
+
+  const northEast = map.unproject(
+    [maxX, minY],
+    zoom
+  );
+
+  map.setMaxBounds(
+    L.latLngBounds(southWest, northEast)
+  );
+}
+
+map.whenReady(function () {
+  setTimeout(limitMap, 300);
+});
+
+map.on("zoomend", limitMap);
+
+window.addEventListener("resize", function () {
+  setTimeout(limitMap, 100);
+});
 
 
 
