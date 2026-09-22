@@ -898,7 +898,9 @@ const map = L.map("universityMap", {
   doubleClickZoom: false,
   touchZoom: false,
   boxZoom: false,
-  keyboard: false
+  keyboard: false,
+  maxBounds: imageBounds,
+  maxBoundsViscosity: 1.0
 }).setView([34.78035, 36.33105], 19);
 
 const minZoom = map.getBoundsZoom(imageBounds, true);
