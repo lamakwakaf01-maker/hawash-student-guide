@@ -900,10 +900,10 @@ const map = L.map("universityMap", {
   boxZoom: false,
   keyboard: false,
   maxBounds: imageBounds,
-  maxBoundsViscosity: 1.0
+  maxBoundsViscosity: 1.0,
+  minZoom: 19
 }).setView([34.78035, 36.33105], 19);
 
-map.setMinZoom(map.getBoundsZoom(imageBounds, true));
 
 L.imageOverlay("hawash-map.jpg.jpeg", imageBounds).addTo(map);
 
