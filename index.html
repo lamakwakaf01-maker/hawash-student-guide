@@ -887,19 +887,21 @@ item => `
       return;
     }
 
-    const map = L.map("universityMap", {
-  dragging: false,
+    const imageBounds = [
+  [34.775, 36.320],
+  [34.787, 36.340]
+];
+
+const map = L.map("universityMap", {
+  dragging: true,
   scrollWheelZoom: false,
   doubleClickZoom: false,
   touchZoom: false,
   boxZoom: false,
   keyboard: false,
+  maxBounds: imageBounds,
+  maxBoundsViscosity: 1.0
 }).setView([34.78035, 36.33105], 19);
-  
-    const imageBounds = [
-  [34.775, 36.320],
-  [34.787, 36.340]
-];
 
 L.imageOverlay("hawash-map.jpg.jpeg", imageBounds).addTo(map);
 
