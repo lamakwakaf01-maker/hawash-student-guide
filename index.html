@@ -904,6 +904,9 @@ const map = L.map("universityMap", {
 const minZoom = map.getBoundsZoom(imageBounds, true);
 map.setMinZoom(minZoom);
 
+map.setMaxBounds(imageBounds);
+map.setMaxBoundsViscosity(1.0);
+
 function keepMapInsideImage() {
   const viewBounds = map.getBounds();
 
@@ -944,8 +947,7 @@ function keepMapInsideImage() {
   }
 }
 
-map.on("dragend", keepMapInsideImage);
-map.on("zoomend", keepMapInsideImage);
+
 
 
 
