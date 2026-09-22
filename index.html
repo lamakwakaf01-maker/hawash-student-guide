@@ -914,10 +914,11 @@ const places = [
 places.forEach(place => {
 
   const label = L.divIcon({
-    className: "map-place-label",
-    html: `<span>${place.name}</span>`,
-    iconSize: null
-  });
+  className: "map-place-label",
+  html: `<span>${place.name}</span>`,
+  iconSize: null,
+  iconAnchor: [0, 0]
+});
 
   L.marker([place.lat, place.lng], {
     icon: label,
