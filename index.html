@@ -899,54 +899,13 @@ const map = L.map("universityMap", {
   touchZoom: false,
   boxZoom: false,
   keyboard: false
+  maxBoundsViscosity: 1.0
 }).setView([34.78035, 36.33105], 19);
 
 const minZoom = map.getBoundsZoom(imageBounds, true);
 map.setMinZoom(minZoom);
 
-function updateMapBounds() {
-  const zoom = map.getZoom();
-
-  const imageCenter = L.latLngBounds(imageBounds).getCenter();
-
-  const centerPoint = map.project(imageCenter, zoom);
-
-  const mapSize = map.getSize();
-
-  const halfWidth = mapSize.x / 2;
-  const halfHeight = mapSize.y / 2;
-
-  const topLeft = map.unproject(
-    [centerPoint.x - halfWidth, centerPoint.y - halfHeight],
-    zoom
-  );
-
-  const bottomRight = map.unproject(
-    [centerPoint.x + halfWidth, centerPoint.y + halfHeight],
-    zoom
-  );
-
-  const allowedBounds = L.latLngBounds(
-    [
-      imageBounds[0][0] + (imageBounds[1][0] - bottomRight.lat),
-      imageBounds[0][1] + (imageBounds[1][1] - bottomRight.lng)
-    ],
-    [
-      imageBounds[1][0] - (topLeft.lat - imageBounds[0][0]),
-      imageBounds[1][1] - (topLeft.lng - imageBounds[0][1])
-    ]
-  );
-
-  map.setMaxBounds(allowedBounds);
-}
-
-map.whenReady(function () {
-  updateMapBounds();
-});
-
-map.on("zoomend", function () {
-  updateMapBounds();
-});
+map.setMaxBounds(imageBounds);
 
 
 
