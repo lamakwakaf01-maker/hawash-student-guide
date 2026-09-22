@@ -887,9 +887,12 @@ item => `
   [34.775, 36.320],
   [34.787, 36.340]
 ]);
-    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-  attribution: "Tiles &copy; Esri"
-}).addTo(map);
+    const imageBounds = [
+  [34.775, 36.320],
+  [34.787, 36.340]
+];
+
+L.imageOverlay("hawash-map.jpg.jpeg", imageBounds).addTo(map);
 
 map.on("click", function(e) {
   alert(
