@@ -905,11 +905,7 @@ const minZoom = map.getBoundsZoom(imageBounds, true);
 map.setMinZoom(minZoom);
 
 
-map.on("zoomend", function () {
-  map.panInsideBounds(imageBounds, {
-    animate: false
-  });
-});
+
 
 
 L.imageOverlay("hawash-map.jpg.jpeg", imageBounds).addTo(map);
