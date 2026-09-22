@@ -904,48 +904,49 @@ const map = L.map("universityMap", {
 const minZoom = map.getBoundsZoom(imageBounds, true);
 map.setMinZoom(minZoom);
 
-map.setMaxBounds(imageBounds);
-map.setMaxBoundsViscosity(1.0);
+function updateMapBounds() {
+  const zoom = map.getZoom();
 
-function keepMapInsideImage() {
-  const viewBounds = map.getBounds();
+  const imageCenter = L.latLngBounds(imageBounds).getCenter();
 
-  let north = viewBounds.getNorth();
-  let south = viewBounds.getSouth();
-  let east = viewBounds.getEast();
-  let west = viewBounds.getWest();
+  const centerPoint = map.project(imageCenter, zoom);
 
-  const imageNorth = imageBounds[1][0];
-  const imageSouth = imageBounds[0][0];
-  const imageWest = imageBounds[0][1];
-  const imageEast = imageBounds[1][1];
+  const mapSize = map.getSize();
 
-  let center = map.getCenter();
-  let lat = center.lat;
-  let lng = center.lng;
+  const halfWidth = mapSize.x / 2;
+  const halfHeight = mapSize.y / 2;
 
-  if (north > imageNorth) {
-    lat -= north - imageNorth;
-  }
+  const topLeft = map.unproject(
+    [centerPoint.x - halfWidth, centerPoint.y - halfHeight],
+    zoom
+  );
 
-  if (south < imageSouth) {
-    lat += imageSouth - south;
-  }
+  const bottomRight = map.unproject(
+    [centerPoint.x + halfWidth, centerPoint.y + halfHeight],
+    zoom
+  );
 
-  if (east > imageEast) {
-    lng -= east - imageEast;
-  }
+  const allowedBounds = L.latLngBounds(
+    [
+      imageBounds[0][0] + (imageBounds[1][0] - bottomRight.lat),
+      imageBounds[0][1] + (imageBounds[1][1] - bottomRight.lng)
+    ],
+    [
+      imageBounds[1][0] - (topLeft.lat - imageBounds[0][0]),
+      imageBounds[1][1] - (topLeft.lng - imageBounds[0][1])
+    ]
+  );
 
-  if (west < imageWest) {
-    lng += imageWest - west;
-  }
-
-  if (lat !== center.lat || lng !== center.lng) {
-    map.setView([lat, lng], map.getZoom(), {
-      animate: false
-    });
-  }
+  map.setMaxBounds(allowedBounds);
 }
+
+map.whenReady(function () {
+  updateMapBounds();
+});
+
+map.on("zoomend", function () {
+  updateMapBounds();
+});
 
 
 
