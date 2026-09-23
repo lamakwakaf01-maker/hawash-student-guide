@@ -697,7 +697,13 @@ header p {
       error.style.display = "block";
       return;
     }
+    let deviceId = localStorage.getItem("hawash_device_id");
 
+    if (!deviceId) {
+     deviceId = crypto.randomUUID();
+    localStorage.setItem("hawash_device_id", deviceId);
+   }
+    
     const { data: authData, error: authError } =
       await supabaseClient.auth.signInAnonymously();
 
@@ -710,7 +716,7 @@ header p {
     const { data, error: verifyError } =
       await supabaseClient.rpc(
         "verify_access_code",
-        { input_code: code }
+        { input_code: code, input_device_id: deviceId }
       );
 
     if (verifyError || data !== true) {
