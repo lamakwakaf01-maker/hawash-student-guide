@@ -728,7 +728,9 @@ header p {
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("app").style.display = "block";
     
-    loadData();
+    const { data: verified } = await supabaseClient.rpc("is_verified_student");
+console.log("VERIFIED STUDENT:", verified);
+   loadData();
   }
 
 
