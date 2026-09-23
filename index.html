@@ -729,7 +729,7 @@ header p {
     document.getElementById("app").style.display = "block";
     
     const { data: verified } = await supabaseClient.rpc("is_verified_student");
-console.log("VERIFIED STUDENT:", verified);
+    alert("VERIFIED STUDENT: " + verified);
    loadData();
   }
 
