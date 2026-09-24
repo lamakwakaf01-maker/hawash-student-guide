@@ -949,6 +949,22 @@ item => `
 
     window.scrollTo(0, 0);
   }
+
+  function loadPlannerDate() {
+  const dateElement = document.getElementById("plannerDate");
+
+  if (!dateElement) return;
+
+  const today = new Date();
+
+  dateElement.textContent = today.toLocaleDateString("ar-SY", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  }
+  
    document.getElementById("loginScreen").style.display = "flex";
    console.log("LOGIN TEST");
   </script>
