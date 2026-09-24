@@ -984,6 +984,43 @@ item => `
     day: "numeric"
   });
   }
+
+  async function savePlannerDay() {
+  const tasks = document.getElementById("plannerTasks").value.trim();
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert("يجب تسجيل الدخول أولاً.");
+    return;
+  }
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const { error } = await supabaseClient
+    .from("planner_days")
+    .upsert(
+      {
+        user_id: user.id,
+        planner_date: today,
+        tasks: tasks
+      },
+      {
+        onConflict: "user_id,planner_date"
+      }
+    );
+
+  if (error) {
+    console.error(error);
+    alert("حدث خطأ أثناء حفظ المهام.");
+    return;
+  }
+
+  alert("تم حفظ مهام اليوم بنجاح.");
+  }
+  
   
    document.getElementById("loginScreen").style.display = "flex";
    console.log("LOGIN TEST");
