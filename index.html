@@ -1014,7 +1014,7 @@ item => `
 
   if (error) {
     console.error(error);
-    alert("حدث خطأ أثناء حفظ المهام.");
+    alert("خطأ الحفظ: " + error.message);
     return;
   }
 
