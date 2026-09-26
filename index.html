@@ -1193,4 +1193,19 @@ places.forEach(place => {
   })
 
 
-                  </script>
+  async function restoreSession() {
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+  if (!session) return;
+
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  loadData();
+}
+
+restoreSession();
+
+</script>
