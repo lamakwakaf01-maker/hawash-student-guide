@@ -766,8 +766,7 @@ header p {
     localStorage.setItem("hawash_device_id", deviceId);
    }
     
-    const { data: sessionData } =
-  awconst { data: authData, error: authError } =
+    const { data: authData, error: authError } =
   await supabaseClient.auth.signInAnonymously();
 
 if (authError) {
