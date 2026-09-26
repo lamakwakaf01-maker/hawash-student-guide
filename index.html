@@ -1004,8 +1004,6 @@ item => `
 
   if (!user) return;
 
-alert("User ID الحالي:\n" + user.id);
-
   const today = new Date().toISOString().split("T")[0];
 
   const { data, error } = await supabaseClient
