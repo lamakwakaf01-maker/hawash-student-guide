@@ -1035,7 +1035,7 @@ item => `
 
   async function savePlannerDay() {
   const tasks = document.getElementById("plannerTasks").value.trim();
-
+const studied = document.getElementById("plannerStudied").value.trim();
   const {
     data: { user }
   } = await supabaseClient.auth.getUser();
