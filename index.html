@@ -695,25 +695,34 @@ header p {
     <div id="plannerContent">
 
   <div class="content-card">
-    <h3>مهامي اليوم</h3>
+  <h3>مهامي اليوم</h3>
 
-    <textarea
-      id="plannerTasks"
-      placeholder="اكتب مهامك لليوم..."
-      rows="5"
-      style="width:100%; box-sizing:border-box; margin-top:10px; padding:12px; border:1px solid #ddd; border-radius:12px; font-family:inherit; resize:vertical;"
-    ></textarea>
+  <textarea
+    id="plannerTasks"
+    placeholder="اكتب مهامك لليوم..."
+    rows="5"
+    style="width:100%; box-sizing:border-box; margin-top:10px; padding:12px; border:1px solid #ddd; border-radius:12px; font-family:inherit; resize:vertical;"
+  ></textarea>
 
-    <button
-      type="button"
-      onclick="savePlannerDay()"
-      style="margin-top:12px; width:100%;"
-    >
-      حفظ مهامي
-    </button>
+  <h3 style="margin-top:20px;">شو درست اليوم؟</h3>
+
+  <textarea
+    id="plannerStudied"
+    placeholder="اكتب المواد أو المواضيع اللي درستها اليوم..."
+    rows="4"
+    style="width:100%; box-sizing:border-box; margin-top:10px; padding:12px; border:1px solid #ddd; border-radius:12px; font-family:inherit; resize:vertical;"
+  ></textarea>
+
+  <button
+    type="button"
+    onclick="savePlannerDay()"
+    style="margin-top:12px; width:100%;"
+  >
+    حفظ اليوم
+  </button>
+</div>
+
   </div>
-
-    </div>
   </div>
 
       
