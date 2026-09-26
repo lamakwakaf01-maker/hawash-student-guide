@@ -766,9 +766,23 @@ header p {
     localStorage.setItem("hawash_device_id", deviceId);
    }
     
-    const { data: authData, error: authError } =
-      await supabaseClient.auth.signInAnonymously();
+    const { data: sessionData } =
+  await supabaseClient.auth.getSession();
 
+let authUser = sessionData.session?.user;
+
+if (!authUser) {
+  const { data: authData, error: authError } =
+    await supabaseClient.auth.signInAnonymously();
+
+  if (authError) {
+    error.textContent = "حدث خطأ في الاتصال. حاول مرة أخرى.";
+    error.style.display = "block";
+    return;
+  }
+
+  authUser = authData.user;
+}
     if (authError) {
       error.textContent = "حدث خطأ في الاتصال. حاول مرة أخرى.";
       error.style.display = "block";
