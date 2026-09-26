@@ -995,12 +995,25 @@ item => `
     data: { user }
   } = await supabaseClient.auth.getUser();
 
-  if (!user) {
-    alert("لا يوجد مستخدم مسجل.");
+  if (!user) return;
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const { data, error } = await supabaseClient
+    .from("planner_days")
+    .select("tasks")
+    .eq("user_id", user.id)
+    .eq("planner_date", today)
+    .maybeSingle();
+
+  if (error) {
+    console.error("خطأ تحميل المخطط:", error);
     return;
   }
 
-  alert("User ID الحالي:\n" + user.id);
+  if (data) {
+    document.getElementById("plannerTasks").value = data.tasks || "";
+  }
   }
   
 
