@@ -957,17 +957,22 @@ item => `
 
   function showPage(pageId) {
 
-    document
-      .querySelectorAll(".page")
-      .forEach(page => {
-        page.classList.remove("active");
-      });
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+      page.classList.remove("active");
+    });
 
-    document
-      .getElementById(pageId)
-      .classList.add("active");
+  document
+    .getElementById(pageId)
+    .classList.add("active");
 
-    window.scrollTo(0, 0);
+  if (pageId === "plannerPage") {
+    loadPlannerDate();
+    loadPlannerDay();
+  }
+
+  window.scrollTo(0, 0);
   }
 
   function loadPlannerDate() {
@@ -984,6 +989,33 @@ item => `
     day: "numeric"
   });
   }
+
+  async function loadPlannerDay() {
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const { data, error } = await supabaseClient
+    .from("planner_days")
+    .select("tasks")
+    .eq("user_id", user.id)
+    .eq("planner_date", today)
+    .maybeSingle();
+
+  if (error) {
+    console.error("خطأ تحميل المخطط:", error);
+    return;
+  }
+
+  if (data) {
+    document.getElementById("plannerTasks").value = data.tasks || "";
+  }
+  }
+  
 
   async function savePlannerDay() {
   const tasks = document.getElementById("plannerTasks").value.trim();
