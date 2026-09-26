@@ -775,12 +775,6 @@ if (authError) {
   error.style.display = "block";
   return;
   }
-    
-    if (authError) {
-      error.textContent = "حدث خطأ في الاتصال. حاول مرة أخرى.";
-      error.style.display = "block";
-      return;
-    }
 
     const { data, error: verifyError } =
       await supabaseClient.rpc(
